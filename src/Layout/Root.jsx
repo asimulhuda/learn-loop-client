@@ -8,8 +8,8 @@ const Root = () => {
     <div>
       <div className="lg:max-w-[1200px] lg:mx-auto mx-5">
         <Navbar />
-        <Outlet />
       </div>
+      <Outlet />
       <Footer />
     </div>
   );

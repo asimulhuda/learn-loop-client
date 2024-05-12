@@ -35,7 +35,7 @@ const Navbar = () => {
     </ul>
   );
   return (
-    <div className="sticky top-0 z-10 h-max rounded-none py-2 lg:py-4 shadow-none">
+    <div className="sticky top-0 z-10 h-max rounded-none py-4 shadow-none">
       <div className="flex items-center justify-between text-blue-gray-900">
         <Link to="/">
           <img src={logo} alt="ExploreX" className="w-40" />
