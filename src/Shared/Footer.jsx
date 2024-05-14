@@ -32,7 +32,7 @@ const Footer = () => {
           <div className="col-span-2 grid lg:grid-cols-3 grid-cols-2 justify-between gap-4">
             {LINKS.map(({ title, items }) => (
               <ul key={title}>
-                <Typography color="#072F60" className="mb-3 font-bold text-xl">
+                <Typography className="text-[#072F60] mb-3 font-bold text-xl">
                   {title}
                 </Typography>
                 {items.map((link) => (

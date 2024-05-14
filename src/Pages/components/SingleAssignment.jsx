@@ -1,37 +1,44 @@
 import { Button } from "@material-tailwind/react";
-import React from "react";
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../../provider/AuthProvider";
 
-const SingleAssignment = () => {
+const SingleAssignment = ({ assignment }) => {
+  const { user } = useContext(AuthContext);
+  const { _id, category, assignment_title, marks, image_url } =
+    assignment || {};
   return (
     <div className="shadow-lg hover:scale-105 duration-300">
-      <img
-        src="https://thepixelcurve.com/wp/lmsmart/lp/wp-content/uploads/sites/2/2022/03/UJYT73-740x540.jpeg"
-        alt=""
-        className="h-60 w-full"
-      />
+      <img src={image_url} alt="" className="h-60 w-full" />
       <div className="p-7 space-y-6">
         <div className="flex justify-between items-center">
-          <span className="px-4 py-2 hover:bg-[#3BBCA7] bg-[#3BBCA733] rounded-md text-[#3BBCA7] hover:text-white font-semibold">
-            Hard
+          <span
+            className={`px-3 py-1 ${
+              category === "Normal" &&
+              "text-blue-500 bg-blue-100/60 hover:bg-blue-500"
+            } ${
+              category === "Easy" &&
+              "text-emerald-500 bg-[#3BBCA733] hover:bg-[#3BBCA7]"
+            } ${
+              category === "Hard" &&
+              "text-pink-500 bg-pink-100/60 hover:bg-pink-500"
+            } text-xs px-4 py-2 hover:bg-[#3BBCA7] rounded-md text-[#3BBCA7] hover:text-white font-semibold`}
+          >
+            {category}
           </span>
           <p className="text-[#3BBCA7] text-xl">
-            Marks :<span className="text-black"> 60%</span>
+            Marks :<span className="text-black"> {marks}%</span>
           </p>
         </div>
-        <h2 className="text-xl font-semibold">
-          Absolute Beginners Cooking Course
-        </h2>
-        <div className="flex justify-between">
-          <button class="text-base relative inline-flex items-center justify-start px-6 py-3 overflow-hidden font-medium transition-all bg-red-500 rounded-xl group">
-            <span class="absolute top-0 right-0 inline-block w-4 h-4 transition-all duration-500 ease-in-out bg-red-700 rounded group-hover:-mr-4 group-hover:-mt-4">
-              <span class="absolute top-0 right-0 w-5 h-5 rotate-45 translate-x-1/2 -translate-y-1/2 bg-white"></span>
-            </span>
-            <span class="absolute bottom-0 left-0 w-full h-full transition-all duration-500 ease-in-out delay-200 -translate-x-full translate-y-full bg-red-600 rounded-2xl group-hover:mb-12 group-hover:translate-x-0"></span>
-            <span class="relative w-full text-left text-white transition-colors duration-200 ease-in-out group-hover:text-white">
-              Delete
-            </span>
-          </button>
-          <button
+        <h2 className="text-xl font-semibold">{assignment_title}</h2>
+        <div className="flex justify-between gap-4">
+          {user && (
+            <Link to={`/update-assignment/${_id}`}>
+              <Button>Edit</Button>
+            </Link>
+          )}
+          <Link
+            to={`/assignment/${_id}`}
             class="inline-flex items-center justify-center w-full px-6 py-3 mb-2 text-base text-white bg-[#3BBCA7] rounded-md hover:bg-[#3BBCA7cc] sm:w-auto sm:mb-0"
             data-primary="green-400"
             data-rounded="rounded-2xl"
@@ -50,7 +57,7 @@ const SingleAssignment = () => {
                 clip-rule="evenodd"
               ></path>
             </svg>
-          </button>
+          </Link>
         </div>
       </div>
     </div>

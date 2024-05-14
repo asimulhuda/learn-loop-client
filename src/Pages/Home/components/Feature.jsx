@@ -1,6 +1,18 @@
+import { useEffect, useState } from "react";
 import SingleAssignment from "../../components/SingleAssignment";
+import axios from "axios";
 
 const Feature = () => {
+  const [assignments, setAssignments] = useState([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      const { data } = await axios("http://localhost:9000/assignments");
+      setAssignments(data);
+    };
+    getData();
+  }, []);
+
   return (
     <div className="lg:max-w-[1200px] lg:mx-auto mx-5 py-20">
       <div className="text-center">
@@ -9,7 +21,9 @@ const Feature = () => {
         </h2>
       </div>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 mt-16">
-        <SingleAssignment></SingleAssignment>
+        {assignments.map((assignment) => (
+          <SingleAssignment key={assignment._id} assignment={assignment} />
+        ))}
       </div>
     </div>
   );

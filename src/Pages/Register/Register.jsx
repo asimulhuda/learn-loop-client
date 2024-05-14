@@ -1,93 +1,117 @@
-import React from "react";
-import { FaGithub, FaGoogle } from "react-icons/fa";
+import { Button, Checkbox, Input, Typography } from "@material-tailwind/react";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { toast } from "react-toastify";
+import { AuthContext } from "../../provider/AuthProvider";
 
 const Register = () => {
+  const { createUser } = useContext(AuthContext);
+  const [registerError, setRegisterError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+    const form = new FormData(e.currentTarget);
+    const name = form.get("name");
+    const photo = form.get("photo");
+    const email = form.get("email");
+    const password = form.get("password");
+
+    if (password.length < 6) {
+      setRegisterError("Password should be al least 6 characters on longer");
+      return;
+    } else if (!/[A-Z]/.test(password)) {
+      setRegisterError(
+        "Your password should have al least one UpperCase character"
+      );
+      return;
+    }
+
+    setRegisterError("");
+    setSuccess("");
+
+    createUser(email, password)
+      .then((result) => {
+        setSuccess("User Registered Successfully");
+        toast.success("User Registered Successfully");
+        navigate("/");
+      })
+      .catch((error) => {
+        setRegisterError("This email is Already Used");
+      });
+  };
+
   return (
-    <div className="max-w-[500px] mx-auto my-20">
-      <div className="pt-8 pr-8 pb-8 pl-8 lg:col-span-7">
-        <p
-          fontsize="2xl"
-          className="text-gray-900 text-center font-extrabold leading-snug tracking-tight mb-10 md:text-4xl"
+    <div className="max-w-[1200px] lg:mx-auto mx-5 flex justify-center my-20">
+      <div className="lg:w-[450px] py-10 px-4 border">
+        <Typography
+          variant="h4"
+          color="blue-gray"
+          className="text-center text-3xl"
         >
           Register
-        </p>
-        <div>
-          <div className="grid grid-cols-2 gap-4">
-            <div
-              className="rounded-md w-full pt-3 pr-0 pb-3 pl-0 inline-flex items-center justify-center bg-gray-800 text-white
-          cursor-pointer hover:bg-gray-600"
-            >
-              <p>
-                <FaGoogle />
-              </p>
-              <p className="text-xl">Google</p>
-            </div>
-            <div
-              className="rounded-md w-full inline-flex items-center justify-center bg-white border-2
-          text-gray-800 pt-3 pr-0 pb-3 pl-0 gap-2 cursor-pointer border-gray-300"
-            >
-              <p>
-                <FaGithub />
-              </p>
-              <p className="text-xl">Apple</p>
-            </div>
-          </div>
-          <p className="text-sm text-center text-gray-600 pt-4 pr-0 pb-2 pl-0 border-b-2 border-gray-100">
-            OR
-          </p>
-        </div>
-        <div>
-          <div className="w-full mt-3 mr-auto mb-3 ml-auto">
-            <label className="block text-sm font-medium text-gray-700">
-              Your Email
-            </label>
-            <div className="mt-1 mr-0 mb-0 ml-0">
-              <input
-                type="email"
-                placeholder="Ex: james@bond.com"
-                className="focus:ring-indigo-500 focus:border-indigo-500
-            sm:text-sm w-full block h-10 border-gray-300 border shadow-sm rounded-md"
+        </Typography>
+        <Typography color="gray" className="mt-1 text-center font-normal">
+          Nice to meet you! Enter your details to register.
+        </Typography>
+        <form onSubmit={handleRegister} className="mt-8 mb-2 sm:w-96 mx-auto">
+          <div className="mb-1 flex flex-col gap-6">
+            <Input size="lg" name="name" label="Name" type="text" required />
+            <Input size="lg" name="photo" label="Photo URL" type="url" />
+            <Input size="lg" name="email" label="Email" type="email" required />
+            <div className="relative flex">
+              <Input
+                size="lg"
+                name="password"
+                label="Password"
+                type={showPassword ? "text" : "password"}
+                required
               />
+              <span
+                className="cursor-pointer absolute right-0 top-0 py-[14px] px-4 rounded-r-md bg-[#eee]"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
             </div>
           </div>
-          <div className="w-full mt-0 mr-auto mb-3 ml-auto">
-            <label className="block text-sm font-medium text-gray-700">
-              Your Password
-            </label>
-            <div className="mt-1 mr-0 mb-0 ml-0">
-              <input
-                type="password"
-                placeholder="********"
-                className="focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm
-            w-full block h-10 border-gray-300 border shadow-sm rounded-md"
-              />
-            </div>
-          </div>
-          <div className="w-full mt-0 mr-auto mb-4 ml-auto">
-            <label className="block text-sm font-medium text-gray-700">
-              Username
-            </label>
-            <div className="mt-1 mr-0 mb-0 ml-0">
-              <input
-                type="text"
-                placeholder="ex: user1"
-                className="focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm
-            w-full block h-10 border-gray-300 border shadow-sm rounded-md"
-              />
-            </div>
-          </div>
-          <button
-            fontfamily="Arial"
-            className="hover:bg-gray-600 rounded-md text-xl pt-3 pr-3 pb-3 pl-3 bg-gray-800 font-semibold
-        text-white w-full text-center"
-          >
-            Submit
-          </button>
-          <div className="flex items-center justify-start border-t-2 border-gray-100 mt-6 mr-0 mb-0 ml-0 pt-6 pr-0 pb-0 pl-0">
-            <p className="text-sm text-gray-800">Already have an account?</p>
-            <a className="text-sm text-blue-500 mt-0 mr-0 mb-0 ml-2">Sign In</a>
-          </div>
-        </div>
+          <Checkbox
+            name="checkbox"
+            required
+            label={
+              <Typography
+                variant="small"
+                color="gray"
+                className="flex items-center font-normal"
+              >
+                I agree the
+                <a
+                  href="#"
+                  className="font-medium transition-colors hover:text-gray-900"
+                >
+                  &nbsp;Terms and Conditions
+                </a>
+              </Typography>
+            }
+            containerProps={{ className: "-ml-2.5" }}
+          />
+          {registerError && (
+            <p className="text-red-500 text-lg py-2">{registerError}</p>
+          )}
+          {success && <p className="text-green-500 text-lg py-2">{success}</p>}
+          <Button type="submit" className="mt-6 bg-[#3BBCA7]" fullWidth>
+            Register
+          </Button>
+          <Typography color="gray" className="mt-4 text-center font-normal">
+            Already have an account?{" "}
+            <Link to="/login" className="font-semibold text-[#3BBCA7]">
+              Login
+            </Link>
+          </Typography>
+        </form>
       </div>
     </div>
   );

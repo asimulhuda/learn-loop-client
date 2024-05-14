@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   MobileNav,
   Typography,
@@ -9,9 +9,16 @@ import {
 import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { CiUser } from "react-icons/ci";
+import { AuthContext } from "../provider/AuthProvider";
+import userImage from "../assets/user.png";
 
 const Navbar = () => {
   const [openNav, setOpenNav] = React.useState(false);
+  const { user, logOut } = useContext(AuthContext);
+
+  const handleLogOut = () => {
+    logOut().then().catch();
+  };
 
   React.useEffect(() => {
     window.addEventListener(
@@ -34,6 +41,19 @@ const Navbar = () => {
       </Typography>
     </ul>
   );
+  const dropDowNavList = (
+    <>
+      <li>
+        <Link to="/create-assignment">Create Assignment</Link>
+      </li>
+      <li>
+        <Link to="/my-assignments">My Assignments</Link>
+      </li>
+      <li>
+        <Link to="/pending-assignments">Pending Assignments</Link>
+      </li>
+    </>
+  );
   return (
     <div className="sticky top-0 z-10 h-max rounded-none py-4 shadow-none">
       <div className="flex items-center justify-between text-blue-gray-900">
@@ -43,8 +63,45 @@ const Navbar = () => {
         <div className="mr-4 hidden lg:block">{navList}</div>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-x-2">
-            <CiUser />
-            <Link to="/login">Login</Link>/<Link to="/register">Register</Link>
+            {user ? (
+              <>
+                <div className="dropdown dropdown-end">
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    className="btn btn-circle avatar"
+                  >
+                    <div className="w-10 rounded-full">
+                      <img
+                        alt="User Image"
+                        src={user?.photoURL ? user?.photoURL : userImage}
+                      />
+                    </div>
+                  </div>
+                  <div
+                    tabIndex={0}
+                    className="menu menu-sm dropdown-content mt-3 z-[1] p-4 shadow bg-base-100 rounded-box w-80 space-y-6"
+                  >
+                    <div className="text-center space-y-2">
+                      <h3 className="text-xl font-semibold">
+                        {user?.displayName}
+                      </h3>
+                      <p>{user?.email}</p>
+                    </div>
+                    <ul className="space-y-2">{dropDowNavList}</ul>
+                    <Button onClick={handleLogOut} className="w-full">
+                      <a>Logout</a>
+                    </Button>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <CiUser />
+                <Link to="/login">Login</Link>/
+                <Link to="/register">Register</Link>
+              </>
+            )}
           </div>
           <IconButton
             variant="text"
