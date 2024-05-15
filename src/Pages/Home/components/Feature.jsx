@@ -21,7 +21,7 @@ const Feature = () => {
         </h2>
       </div>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 mt-16">
-        {assignments.map((assignment) => (
+        {assignments.slice(0, 6).map((assignment) => (
           <SingleAssignment key={assignment._id} assignment={assignment} />
         ))}
       </div>

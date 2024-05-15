@@ -5,11 +5,10 @@ import { AuthContext } from "../../provider/AuthProvider";
 
 const SingleAssignment = ({ assignment }) => {
   const { user } = useContext(AuthContext);
-  const { _id, category, assignment_title, marks, image_url } =
-    assignment || {};
+  const { _id, category, assignment_title, marks, image } = assignment || {};
   return (
     <div className="shadow-lg hover:scale-105 duration-300">
-      <img src={image_url} alt="" className="h-60 w-full" />
+      <img src={image} alt="" className="h-60 w-full" />
       <div className="p-7 space-y-6">
         <div className="flex justify-between items-center">
           <span
@@ -30,7 +29,9 @@ const SingleAssignment = ({ assignment }) => {
             Marks :<span className="text-black"> {marks}%</span>
           </p>
         </div>
-        <h2 className="text-xl font-semibold">{assignment_title}</h2>
+        <h2 className="text-xl font-semibold">
+          {assignment_title.substring(0, 40)}...
+        </h2>
         <div className="flex justify-between gap-4">
           {user && (
             <Link to={`/update-assignment/${_id}`}>

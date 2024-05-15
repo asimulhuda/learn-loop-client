@@ -1,5 +1,5 @@
 import { Button, Input, Typography } from "@material-tailwind/react";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash, FaGithub, FaGoogle } from "react-icons/fa";
 import { toast } from "react-toastify";
@@ -7,12 +7,19 @@ import { AuthContext } from "../../provider/AuthProvider";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
-
   const [registerError, setRegisterError] = useState("");
   const [success, setSuccess] = useState("");
-  const { logIn, logInWithGoogle, logInWithGithub } = useContext(AuthContext);
+  const { logIn, logInWithGoogle, logInWithGithub, user, loading } =
+    useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [navigate, user]);
+
   const handleLogIn = (e) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
@@ -60,6 +67,7 @@ const Login = () => {
       });
   };
 
+  if (user || loading) return;
   return (
     <div className="max-w-[1200px] lg:mx-auto mx-5 flex justify-center my-20">
       <div className="lg:w-[450px] py-10 px-4 border">

@@ -41,14 +41,17 @@ const MyAssignments = () => {
       <div style={{ backgroundImage: `url(${bgImg})` }}>
         <div className="h-[30vh] flex flex-col justify-center items-center">
           <h2 className="lg:text-5xl text-4xl font-semibold text-center leading-[60px]">
-            Assignment {""}
-            <span className="bg-[#3BBCA7] text-white"> Details</span>
+            My {""}
+            <span className="bg-[#3BBCA7] text-white"> Assignments</span>
           </h2>
         </div>
       </div>
       <div className="lg:max-w-[1200px] lg:mx-auto mx-5 my-10">
         <h3 className="text-2xl font-semibold">
-          All Assignments : {assignment.length}
+          My All Assignments :{" "}
+          <span className="px-2 bg-[#3BBCA7] text-white rounded-3xl">
+            {assignment.length}
+          </span>
         </h3>
         <div className="flex flex-col mt-6">
           <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -122,7 +125,7 @@ const MyAssignments = () => {
                                 "text-blue-500 bg-blue-100/60"
                               } ${
                                 assig.category === "Easy" &&
-                                "text-emerald-500 bg-emerald-100/60"
+                                "text-[#3BBCA7] bg-[#D8F2ED]"
                               } ${
                                 assig.category === "Hard" &&
                                 "text-pink-500 bg-pink-100/60"

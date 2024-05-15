@@ -41,8 +41,10 @@ const AssignmentDetails = () => {
       pdf,
       note,
       assignmentId,
+      marks,
       userEmail,
       status,
+      assignment_title,
     };
 
     try {
@@ -51,7 +53,7 @@ const AssignmentDetails = () => {
         submitData
       );
       toast.success("Assignment submitted successfully  ");
-      navigate("/");
+      navigate("/my-submissions");
     } catch (err) {}
     form.reset();
   };
@@ -69,7 +71,11 @@ const AssignmentDetails = () => {
       <div className="lg:max-w-[1200px] lg:mx-auto mx-5 mt-12 mb-20">
         <div className="flex lg:flex-row flex-col gap-10">
           <div className="lg:w-[800px] space-y-10">
-            <img src={image} alt="" className="w-full lg:h-[450px]" />
+            <img
+              src={image}
+              alt="Assignment Image"
+              className="w-full lg:h-[450px]"
+            />
             <h2 className="text-2xl font-semibold">{assignment_title}</h2>
             <div>
               <div className="pb-8 border-b border-gray-600">

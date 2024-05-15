@@ -50,6 +50,9 @@ const Navbar = () => {
         <Link to="/my-assignments">My Assignments</Link>
       </li>
       <li>
+        <Link to="/my-submissions">My Submissions</Link>
+      </li>
+      <li>
         <Link to="/pending-assignments">Pending Assignments</Link>
       </li>
     </>

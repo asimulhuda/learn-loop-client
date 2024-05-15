@@ -9,6 +9,7 @@ import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import UpdateAssignment from "../Pages/UpdateAssignment/UpdateAssignment";
 import AssignmentDetails from "../Pages/AssignmentDetails/AssignmentDetails";
+import MySubmissions from "../Pages/MySubmissions/MySubmissions";
 import Error from "../Shared/Error";
 import PrivateRoute from "./PrivateRoute";
 
@@ -39,6 +40,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyAssignments />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/my-submissions",
+        element: (
+          <PrivateRoute>
+            <MySubmissions />
           </PrivateRoute>
         ),
       },
