@@ -31,7 +31,7 @@ const UpdatePendingAssignment = ({ pend }) => {
 
     try {
       const { data } = await axios.put(
-        `http://localhost:9000/pending-assignments/${_id}`,
+        `https://learn-loop-server.vercel.app/pending-assignments/${_id}`,
         updatePendingData
       );
       toast.success("Mark given successfully");

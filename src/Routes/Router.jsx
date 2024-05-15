@@ -67,7 +67,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:9000/assignment/${params.id}`),
+          fetch(`https://learn-loop-server.vercel.app/assignment/${params.id}`),
       },
       {
         path: "/assignment/:id",
@@ -77,7 +77,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:9000/assignment/${params.id}`),
+          fetch(`https://learn-loop-server.vercel.app/assignment/${params.id}`),
       },
       {
         path: "/login",

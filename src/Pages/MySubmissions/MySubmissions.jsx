@@ -15,7 +15,7 @@ const MySubmissions = () => {
 
   const getData = async () => {
     const { data } = await axios(
-      `http://localhost:9000/my-submissions/${user?.email}`
+      `https://learn-loop-server.vercel.app/my-submissions/${user?.email}`
     );
     setSubmissions(data);
   };

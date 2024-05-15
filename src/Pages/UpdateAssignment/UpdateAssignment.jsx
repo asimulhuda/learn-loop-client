@@ -52,7 +52,7 @@ const UpdateAssignment = () => {
 
     try {
       const { data } = await axios.put(
-        `http://localhost:9000/assignment/${_id}`,
+        `https://learn-loop-server.vercel.app/assignment/${_id}`,
         updatedAssignmentData
       );
       toast.success("Assignment Updated successfully");

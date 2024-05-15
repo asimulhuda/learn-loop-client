@@ -16,7 +16,7 @@ const PendingAssignments = () => {
 
   const getData = async () => {
     const { data } = await axios(
-      `http://localhost:9000/pending-assignments/${user?.email}`
+      `https://learn-loop-server.vercel.app/pending-assignments/${user?.email}`
     );
     setPending(data);
   };

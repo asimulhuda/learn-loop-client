@@ -15,7 +15,7 @@ const MyAssignments = () => {
 
   const getData = async () => {
     const { data } = await axios(
-      `http://localhost:9000/assignments/${user?.email}`
+      `https://learn-loop-server.vercel.app/assignments/${user?.email}`
     );
     setAssignment(data);
   };
@@ -23,16 +23,16 @@ const MyAssignments = () => {
   const handleDelete = async (id) => {
     try {
       const { data } = await axios.delete(
-        `http://localhost:9000/assignment/${id}`
+        `https://learn-loop-server.vercel.app/assignment/${id}`
       );
-      console.log(data);
+      // console.log(data);
       toast.success("Deleted Successfully");
 
       // Refresh Ui
       getData();
     } catch (err) {
-      console.log(err.massage);
-      toast.success(err.massage);
+      // console.log(err.massage);
+      toast.warn(err.massage);
     }
   };
 

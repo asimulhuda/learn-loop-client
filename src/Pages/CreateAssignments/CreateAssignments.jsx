@@ -38,7 +38,7 @@ const CreateAssignments = () => {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:9000/assignment",
+        "https://learn-loop-server.vercel.app/assignment",
         newAssignmentData
       );
       toast.success("Created New Assignment successfully");

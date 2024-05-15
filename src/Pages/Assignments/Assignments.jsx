@@ -9,7 +9,9 @@ const Assignments = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const { data } = await axios("http://localhost:9000/assignments");
+      const { data } = await axios(
+        "https://learn-loop-server.vercel.app/assignments"
+      );
       setAssignments(data);
     };
     getData();

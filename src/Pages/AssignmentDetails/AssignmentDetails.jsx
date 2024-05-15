@@ -49,7 +49,7 @@ const AssignmentDetails = () => {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:9000/submit",
+        "https://learn-loop-server.vercel.app/submit",
         submitData
       );
       toast.success("Assignment submitted successfully  ");
